@@ -32,7 +32,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <PackageGrid limit={3} />
+      <PackageGrid featuredOnly />
       <WhyUs />
     </>
   );

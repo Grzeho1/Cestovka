@@ -2,6 +2,7 @@
   "nav": {
     "home": "Home",
     "packages": "Packages",
+    "about": "About us",
     "cta": "Get a Quote",
     "admin": "Admin",
     "login": "Sign In",
@@ -11,7 +12,7 @@
     "tag": "Travel agency focused on Indonesia",
     "title": "Discover the beauty of",
     "titleHighlight": "Indonesia",
-    "subtitle": "Small groups, authentic experiences, and local guides. Explore islands, volcanoes, and jungles with us.",
+    "subtitle": "Small groups, authentic experiences and a Czech-speaking guide on the ground. Explore islands, volcanoes, ancient temples and a culture unlike anything in Europe.",
     "cta": "Browse Packages",
     "ctaSecondary": "Get a Quote",
     "statTrips": "Ready-made trips",
@@ -32,7 +33,8 @@
     "priceFrom": "from",
     "perPerson": "/ person",
     "moreInfo": "More Info",
-    "noResults": "No packages match the selected filters."
+    "noResults": "No packages match the selected filters.",
+    "viewAll": "View all packages"
   },
   "whyUs": {
     "title": "Why travel with us",
@@ -108,6 +110,7 @@
     "fieldPrice": "Price from (€) *",
     "fieldPerex": "Short description",
     "fieldActive": "Active",
+    "fieldFeatured": "Show on homepage",
     "fieldDescription": "Detailed description",
     "fieldIncluded": "Included in price (each line = 1 item)",
     "fieldExcluded": "Not included in price (each line = 1 item)",
@@ -163,6 +166,39 @@
       }
     ]
   },
+  "aboutUs": {
+    "metaTitle": "About Us – Nusantara Travel Philosophy",
+    "metaDesc": "Discover what drives us and why we fell in love with Indonesia. Small groups, authentic experiences, Czech-speaking guide living on the ground.",
+    "heroTag": "Our philosophy",
+    "heroTitle": "Indonesia is not a destination.",
+    "heroTitleHighlight": "It's a state of mind.",
+    "heroSubtitle": "We believe real travel starts where the tourist brochures end. We're a small agency with a big heart – and Indonesia is our home.",
+    "philosophyTitle": "Why we do travel differently",
+    "p1Title": "Small groups",
+    "p1Text": "Maximum 8 people per group. Not because we can't take more, but because we believe this number separates tourists from real travellers. A second car, a second guide, a second restaurant – that's no longer authentic.",
+    "p2Title": "Guide living on the ground",
+    "p2Text": "Our guides don't live in Prague. They live in Java, Bali, Flores. They know the locals, respect local culture and speak Indonesian. We don't give you a coordinator from a map – we give you someone who truly lives there.",
+    "p3Title": "Slow travel",
+    "p3Text": "One island thoroughly, not ten islands superficially. Take enough time in one place so you leave with more than just photos. Indonesia rewards those who don't stop only at popular spots.",
+    "p4Title": "Authenticity over comfort",
+    "p4Text": "We don't stay in resort hotels unless necessary. We prefer family guesthouses, warung restaurants and roads through villages – not highways around them.",
+    "whyIndonesiaTitle": "Why Indonesia",
+    "w1Title": "17,000 islands",
+    "w1Text": "Each one different. From volcanoes and ancient rainforests to the world-class underwater world of Raja Ampat.",
+    "w2Title": "Cultural contrast",
+    "w2Text": "Hindu Bali, Muslim Java, animist Flores – three worlds on one archipelago.",
+    "w3Title": "World-class nature",
+    "w3Text": "Komodo, Bromo, Borobudur. Places that stay in your memory longer than an Instagram feed.",
+    "w4Title": "Gastronomy",
+    "w4Text": "One of the richest cuisines in the world – and almost unknown in Central Europe. Rendang, nasi goreng, soto ayam.",
+    "w5Title": "Value for money",
+    "w5Text": "Deep experience at comparable prices to Thailand or Bali all-inclusive – but without the crowds.",
+    "w6Title": "Off the Western radar",
+    "w6Text": "Indonesia still attracts a fraction of the tourists you might expect. No overcrowded beaches full of Europeans, no queues at Instagram spots – just places as they really are.",
+    "ctaTitle": "Want to travel with us?",
+    "ctaText": "Get in touch. Together we'll plan your dream trip – no commitment, no charge.",
+    "ctaBtn": "Enquire now"
+  },
   "contact": {
     "title": "Contact Us",
     "subtitle": "Have a question or want a non-binding quote? Write to us and we'll get back to you within 24 hours.",
@@ -183,7 +219,9 @@
   "footer": {
     "description": "Travel agency focused on Indonesia. Small groups, authentic experiences.",
     "contact": "Contact",
+    "social": "Follow us",
     "links": "Links",
+    "about": "About us",
     "rights": "All rights reserved.",
     "email": "info@nusantara.travel",
     "address": "Pangandaran, West Java, Indonesia"

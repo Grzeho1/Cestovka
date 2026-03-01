@@ -22,6 +22,7 @@ export default function Navbar() {
   const navLinks = [
     { href: `/${locale}`, label: t("home") },
     { href: `/${locale}/baliky`, label: t("packages") },
+    { href: `/${locale}/o-nas`, label: t("about") },
   ];
 
   return (

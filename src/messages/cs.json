@@ -2,6 +2,7 @@
   "nav": {
     "home": "Domů",
     "packages": "Balíky",
+    "about": "O nás",
     "cta": "Nezávazná poptávka",
     "admin": "Admin",
     "login": "Přihlášení",
@@ -11,7 +12,7 @@
     "tag": "Cestovní kancelář zaměřená na Indonésii",
     "title": "Objevte krásy",
     "titleHighlight": "Indonésie",
-    "subtitle": "Malé skupiny, autentické zážitky a místní průvodci. Prozkoumejte ostrovy, sopky a džungle s námi.",
+    "subtitle": "Malé skupiny, autentické zážitky a český průvodce přímo na místě. Prozkoumejte ostrovy, sopky, starověké chrámy a kulturu, která nemá v Evropě obdoby.",
     "cta": "Prohlédnout balíky",
     "ctaSecondary": "Nezávazná poptávka",
     "statTrips": "Připravených tripů",
@@ -32,7 +33,8 @@
     "priceFrom": "od",
     "perPerson": "/ os.",
     "moreInfo": "Více info",
-    "noResults": "Žádné balíky neodpovídají filtrům."
+    "noResults": "Žádné balíky neodpovídají filtrům.",
+    "viewAll": "Zobrazit všechny balíky"
   },
   "whyUs": {
     "title": "Proč cestovat s námi",
@@ -108,6 +110,7 @@
     "fieldPrice": "Cena od (€) *",
     "fieldPerex": "Krátký popis",
     "fieldActive": "Aktivní",
+    "fieldFeatured": "Zobrazit na hlavní stránce",
     "fieldDescription": "Detailní popis",
     "fieldIncluded": "Zahrnuto v ceně (každý řádek = 1 položka)",
     "fieldExcluded": "Nezahrnuto v ceně (každý řádek = 1 položka)",
@@ -163,6 +166,39 @@
       }
     ]
   },
+  "aboutUs": {
+    "metaTitle": "O nás – Filozofie Nusantara Travel",
+    "metaDesc": "Zjistěte, co nás vede a proč jsme začali cestovat právě do Indonésie. Malé skupiny, autentické zážitky, český průvodce přímo na místě.",
+    "heroTag": "Naše filozofie",
+    "heroTitle": "Indonésie není cíl cesty.",
+    "heroTitleHighlight": "Je to způsob myšlení.",
+    "heroSubtitle": "Věříme, že skutečné cestování začíná tam, kde končí turistické brožury. Jsme malá agentura s velkým srdcem – a Indonésie je náš domov.",
+    "philosophyTitle": "Proč děláme cestování jinak",
+    "p1Title": "Malé skupiny",
+    "p1Text": "Maximálně 8 lidí ve skupině. Ne proto, že nemůžeme více, ale protože věříme, že právě toto číslo dělí turisty od skutečných cestovatelů. Druhé auto, druhý průvodce, druhá restaurace – to už není autentické.",
+    "p2Title": "Průvodce přímo na místě",
+    "p2Text": "Naši průvodci nežijí v Praze. Žijí na Jávě, na Bali, na Flores. Znají místní, váží si místní kultury a mluví indonésky. Nedáváme vám koordinátora z mapy – dáváme vám někoho, kdo tam opravdu žije.",
+    "p3Title": "Pomalé cestování",
+    "p3Text": "Jeden ostrov důkladně, ne deset ostrovů povrchově. Dopřejte si dost času na jednom místě, aby vám zůstalo více než jen fotky. Indonésie odměňuje ty, kteří se nezastavují jen na oblíbených místech.",
+    "p4Title": "Autenticita nad komfortem",
+    "p4Text": "Nespíme v resortech, pokud to není nezbytné. Preferujeme rodinné penziony, warung restaurace a cestu vedoucí skrz vesnice – ne po dálnici kolem nich.",
+    "whyIndonesiaTitle": "Proč právě Indonésie",
+    "w1Title": "17 000 ostrovů",
+    "w1Text": "Každý jiný. Od sopek přes pralesy po podmořský svět třídy Raja Ampat.",
+    "w2Title": "Kulturní kontrast",
+    "w2Text": "Hinduistické Bali, muslimská Jáva, animistické Flores – tři světy na jednom souostroví.",
+    "w3Title": "Příroda světové třídy",
+    "w3Text": "Komodo, Bromo, Borobudur. Místa, která zůstávají v paměti déle než Instagram feed.",
+    "w4Title": "Gastronomie",
+    "w4Text": "Jedna z nejbohatších kuchyní světa – a v Česku skoro neznámá. Rendang, nasi goreng, soto ayam.",
+    "w5Title": "Hodnota za peníze",
+    "w5Text": "Hloubkový zážitek za srovnatelné ceny jako Thajsko nebo Bali all-inclusive – ale bez davů.",
+    "w6Title": "Mimo radar Západu",
+    "w6Text": "Indonésie stále přitahuje zlomek turistů, které byste čekali. Žádné přeplněné pláže plné Evropanů, žádné fronty na Instagram spoty – jen místa taková, jaká jsou.",
+    "ctaTitle": "Chcete jet s námi?",
+    "ctaText": "Napište nám. Společně naplánujeme váš vysněný trip – nezávazně a zdarma.",
+    "ctaBtn": "Nezávazná poptávka"
+  },
   "contact": {
     "title": "Kontaktujte nás",
     "subtitle": "Máte dotaz nebo chcete nezávaznou poptávku? Napište nám a ozveme se do 24 hodin.",
@@ -183,7 +219,9 @@
   "footer": {
     "description": "Cestovní kancelář zaměřená na Indonésii. Malé skupiny, autentické zážitky.",
     "contact": "Kontakt",
+    "social": "Sledujte nás",
     "links": "Odkazy",
+    "about": "O nás",
     "rights": "Všechna práva vyhrazena.",
     "email": "info@nusantara.travel",
     "address": "Pangandaran, West Java, Indonésie"

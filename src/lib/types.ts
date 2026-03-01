@@ -23,4 +23,5 @@ export interface Package {
   cover_url: string;
   gallery_urls: string[];
   active: boolean;
+  featured: boolean;
 }

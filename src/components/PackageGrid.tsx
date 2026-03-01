@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
-import { getActivePackages, getAreas } from "@/lib/packages";
+import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
+import { getActivePackages, getFeaturedPackages, getAreas } from "@/lib/packages";
 import type { Package } from "@/lib/types";
 import PackageCard from "./PackageCard";
 import FilterBar from "./FilterBar";
@@ -10,13 +11,16 @@ import FilterBar from "./FilterBar";
 interface PackageGridProps {
   limit?: number;
   showFilter?: boolean;
+  featuredOnly?: boolean;
 }
 
 export default function PackageGrid({
   limit,
   showFilter = false,
+  featuredOnly = false,
 }: PackageGridProps) {
   const t = useTranslations("catalog");
+  const locale = useLocale();
   const [activeArea, setActiveArea] = useState<string | null>(null);
   const [packages, setPackages] = useState<Package[]>([]);
   const [areas, setAreas] = useState<string[]>([]);
@@ -25,7 +29,7 @@ export default function PackageGrid({
   useEffect(() => {
     async function load() {
       const [pkgs, areaList] = await Promise.all([
-        getActivePackages(),
+        featuredOnly ? getFeaturedPackages() : getActivePackages(),
         getAreas(),
       ]);
       setPackages(pkgs);
@@ -33,7 +37,7 @@ export default function PackageGrid({
       setLoading(false);
     }
     load();
-  }, []);
+  }, [featuredOnly]);
 
   const filtered = activeArea
     ? packages.filter((p) => p.area === activeArea)
@@ -100,6 +104,20 @@ export default function PackageGrid({
                 <PackageCard pkg={pkg} />
               </div>
             ))}
+          </div>
+        )}
+
+        {featuredOnly && (
+          <div className="animate-fade-in-up animation-delay-400 text-center mt-12">
+            <Link
+              href={`/${locale}/baliky`}
+              className="inline-flex items-center gap-2 px-6 py-3 border border-deep/20 text-deep text-sm font-medium rounded-[0.4rem] hover:bg-sand transition-colors"
+            >
+              {t("viewAll")}
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
           </div>
         )}
       </div>

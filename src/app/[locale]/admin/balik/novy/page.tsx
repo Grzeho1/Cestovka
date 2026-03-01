@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { createPackage, uploadImage } from "@/lib/packages";
+import { AREAS } from "@/lib/areas";
 import type { ItineraryDay } from "@/lib/types";
 import Link from "next/link";
 
@@ -29,6 +30,7 @@ export default function NewPackagePage() {
     highlights: "",
     badge: "",
     active: true,
+    featured: false,
   });
 
   const [itinerary, setItinerary] = useState<ItineraryDay[]>([
@@ -80,6 +82,7 @@ export default function NewPackagePage() {
       cover_url: coverUrl,
       gallery_urls: galleryUrls,
       active: formData.active,
+      featured: formData.featured,
     });
 
     setSaving(false);
@@ -201,14 +204,18 @@ export default function NewPackagePage() {
                 <label className="block text-sm font-medium text-deep mb-2">
                   {t("fieldArea")}
                 </label>
-                <input
-                  type="text"
+                <select
                   name="area"
                   required
                   value={formData.area}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent"
-                />
+                  className="w-full px-4 py-3 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent bg-white"
+                >
+                  <option value="">– vyber oblast –</option>
+                  {AREAS.map((a) => (
+                    <option key={a} value={a}>{a}</option>
+                  ))}
+                </select>
               </div>
 
               <div>
@@ -282,6 +289,21 @@ export default function NewPackagePage() {
                 />
                 <span className="ml-2 text-sm text-deep">
                   {t("fieldActive")}
+                </span>
+              </label>
+            </div>
+
+            <div className="mt-4">
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  name="featured"
+                  checked={formData.featured}
+                  onChange={handleChange}
+                  className="rounded border-sand text-ember focus:ring-ember"
+                />
+                <span className="ml-2 text-sm text-deep">
+                  {t("fieldFeatured")}
                 </span>
               </label>
             </div>

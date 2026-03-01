@@ -22,7 +22,31 @@ function mapRow(row: Record<string, unknown>): Package {
     cover_url: (row.cover_url as string) || "",
     gallery_urls: (row.gallery_urls as string[]) || [],
     active: row.active as boolean,
+    featured: (row.featured as boolean) || false,
   };
+}
+
+export async function getFeaturedPackages(): Promise<Package[]> {
+  const { data, error } = await supabase
+    .from("packages")
+    .select("*")
+    .eq("active", true)
+    .eq("featured", true)
+    .order("created_at", { ascending: true });
+
+  // If error or no featured packages, fall back to first 3 active packages
+  if (error || !data || data.length === 0) {
+    if (error) console.warn("getFeaturedPackages fallback:", error.message);
+    const { data: fallback } = await supabase
+      .from("packages")
+      .select("*")
+      .eq("active", true)
+      .order("created_at", { ascending: true })
+      .limit(3);
+    return (fallback || []).map(mapRow);
+  }
+
+  return data.map(mapRow);
 }
 
 export async function getActivePackages(): Promise<Package[]> {
@@ -104,6 +128,7 @@ export async function createPackage(
       cover_url: pkg.cover_url,
       gallery_urls: pkg.gallery_urls,
       active: pkg.active,
+      featured: pkg.featured ?? false,
     })
     .select()
     .single();

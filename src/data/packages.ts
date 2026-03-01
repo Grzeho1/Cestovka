@@ -30,6 +30,7 @@ export const packages: Package[] = [
     cover_url: "/images/bali-cover.jpg",
     gallery_urls: [],
     active: true,
+    featured: true,
   },
   {
     id: "2",
@@ -58,6 +59,7 @@ export const packages: Package[] = [
     cover_url: "/images/bromo-cover.jpg",
     gallery_urls: [],
     active: true,
+    featured: true,
   },
   {
     id: "3",
@@ -91,6 +93,7 @@ export const packages: Package[] = [
     cover_url: "/images/flores-cover.jpg",
     gallery_urls: [],
     active: true,
+    featured: false,
   },
   {
     id: "4",
@@ -121,6 +124,7 @@ export const packages: Package[] = [
     cover_url: "/images/raja-ampat-cover.jpg",
     gallery_urls: [],
     active: true,
+    featured: false,
   },
   {
     id: "5",
@@ -149,6 +153,7 @@ export const packages: Package[] = [
     cover_url: "/images/sumatra-cover.jpg",
     gallery_urls: [],
     active: true,
+    featured: false,
   },
 ];
 

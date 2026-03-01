@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { getPackageBySlug, updatePackage, uploadImage } from "@/lib/packages";
+import { AREAS } from "@/lib/areas";
 import type { Package, ItineraryDay } from "@/lib/types";
 import Link from "next/link";
 
@@ -37,6 +38,7 @@ export default function EditPackagePage({
     highlights: "",
     badge: "",
     active: true,
+    featured: false,
   });
 
   const [itinerary, setItinerary] = useState<ItineraryDay[]>([]);
@@ -66,6 +68,7 @@ export default function EditPackagePage({
         highlights: data.highlights.join(", "),
         badge: data.badge || "",
         active: data.active,
+        featured: data.featured || false,
       });
       setItinerary(data.itinerary);
       setCoverPreview(data.cover_url || "");
@@ -116,6 +119,7 @@ export default function EditPackagePage({
       cover_url: coverUrl,
       gallery_urls: newGalleryUrls,
       active: formData.active,
+      featured: formData.featured,
     });
 
     setSaving(false);
@@ -195,195 +199,216 @@ export default function EditPackagePage({
   }
 
   return (
-    <div className="pt-14">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="flex items-center justify-between mb-8">
-          <h1 className="font-heading text-3xl font-bold text-deep">
-            {t("editPackage")}: {pkg.title}
-          </h1>
-          <Link
-            href={`/${locale}/admin`}
-            className="px-6 py-3 bg-sand text-deep font-medium rounded-[0.4rem] hover:bg-sand/80 transition-colors"
-          >
-            {t("back")}
-          </Link>
+    <div className="pt-14 bg-sand/30 min-h-screen">
+      {/* Sticky top bar */}
+      <div className="sticky top-14 z-30 bg-white border-b border-sand shadow-sm">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3 min-w-0">
+            <Link href={`/${locale}/admin`} className="text-mist hover:text-deep transition-colors whitespace-nowrap">
+              ← {t("back")}
+            </Link>
+            <span className="text-sand">|</span>
+            <span className="font-heading font-bold text-deep truncate">{pkg.title}</span>
+          </div>
+          <div className="flex items-center gap-5">
+            {/* Aktivní toggle */}
+            <label className="flex items-center gap-2 cursor-pointer">
+              <div className="relative">
+                <input type="checkbox" name="active" form="edit-form" checked={formData.active} onChange={handleChange} className="sr-only" />
+                <div className={`w-9 h-5 rounded-full transition-colors ${formData.active ? "bg-forest" : "bg-sand border border-mist/30"}`} />
+                <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${formData.active ? "translate-x-4" : "translate-x-0.5"}`} />
+              </div>
+              <span className={`text-xs font-semibold uppercase tracking-wide ${formData.active ? "text-forest" : "text-mist"}`}>
+                {formData.active ? "Aktivní" : "Neaktivní"}
+              </span>
+            </label>
+            {/* Featured toggle */}
+            <label className="flex items-center gap-2 cursor-pointer">
+              <div className="relative">
+                <input type="checkbox" name="featured" form="edit-form" checked={formData.featured} onChange={handleChange} className="sr-only" />
+                <div className={`w-9 h-5 rounded-full transition-colors ${formData.featured ? "bg-ember" : "bg-sand border border-mist/30"}`} />
+                <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${formData.featured ? "translate-x-4" : "translate-x-0.5"}`} />
+              </div>
+              <span className={`text-xs font-semibold uppercase tracking-wide ${formData.featured ? "text-ember" : "text-mist"}`}>
+                {formData.featured ? "Na hlavní" : "Skrytý"}
+              </span>
+            </label>
+            <button
+              type="submit"
+              form="edit-form"
+              disabled={saving}
+              className="px-6 py-2 bg-ember text-white font-medium rounded-[0.4rem] hover:bg-ember/90 transition-colors disabled:opacity-50 text-sm whitespace-nowrap"
+            >
+              {saving ? "Ukládám…" : t("save")}
+            </button>
+          </div>
         </div>
+      </div>
 
-        <form onSubmit={handleSubmit} className="space-y-8">
-          {/* Basic Info */}
-          <div className="bg-white rounded-[1.2rem] p-6 shadow-sm">
-            <h2 className="font-heading text-xl font-bold text-deep mb-6">
-              {t("sectionBasic")}
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium text-deep mb-2">
-                  {t("fieldTitle")}
-                </label>
-                <input type="text" name="title" required value={formData.title} onChange={handleChange} className="w-full px-4 py-3 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-deep mb-2">
-                  {t("fieldSlug")}
-                </label>
-                <input type="text" name="slug" required value={formData.slug} onChange={handleChange} className="w-full px-4 py-3 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-deep mb-2">
-                  {t("fieldArea")}
-                </label>
-                <input type="text" name="area" required value={formData.area} onChange={handleChange} className="w-full px-4 py-3 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-deep mb-2">
-                  {t("fieldDays")}
-                </label>
-                <input type="number" name="duration_days" required min="1" value={formData.duration_days} onChange={handleChange} className="w-full px-4 py-3 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-deep mb-2">
-                  {t("fieldMaxPersons")}
-                </label>
-                <input type="number" name="max_persons" required min="1" value={formData.max_persons} onChange={handleChange} className="w-full px-4 py-3 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-deep mb-2">
-                  {t("fieldPrice")}
-                </label>
-                <input type="number" name="price_from" required min="0" step="0.01" value={formData.price_from} onChange={handleChange} className="w-full px-4 py-3 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent" />
-              </div>
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <form id="edit-form" onSubmit={handleSubmit} className="space-y-6">
+
+          {/* 1. Základní info */}
+          <div className="bg-white rounded-[1.2rem] shadow-sm overflow-hidden">
+            <div className="flex items-center gap-3 px-6 py-4 border-b border-sand bg-sand/20">
+              <span className="w-7 h-7 rounded-full bg-ember text-white text-xs font-bold flex items-center justify-center">1</span>
+              <h2 className="font-heading text-lg font-bold text-deep">{t("sectionBasic")}</h2>
             </div>
-            <div className="mt-6">
-              <label className="block text-sm font-medium text-deep mb-2">
-                {t("fieldPerex")}
-              </label>
-              <textarea name="perex" rows={3} value={formData.perex} onChange={handleChange} className="w-full px-4 py-3 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent" />
-            </div>
-            <div className="mt-6">
-              <label className="flex items-center">
-                <input type="checkbox" name="active" checked={formData.active} onChange={handleChange} className="rounded border-sand text-ember focus:ring-ember" />
-                <span className="ml-2 text-sm text-deep">{t("fieldActive")}</span>
-              </label>
+            <div className="p-6 space-y-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                  <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-1">{t("fieldTitle")}</label>
+                  <input type="text" name="title" required value={formData.title} onChange={handleChange} className="w-full px-4 py-2.5 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent text-sm" />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-1">{t("fieldSlug")}</label>
+                  <input type="text" name="slug" required value={formData.slug} onChange={handleChange} className="w-full px-4 py-2.5 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent text-sm font-mono" />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-1">{t("fieldArea")}</label>
+                  <select name="area" required value={formData.area} onChange={handleChange} className="w-full px-4 py-2.5 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent bg-white text-sm">
+                    <option value="">– vyber oblast –</option>
+                    {AREAS.map((a) => (<option key={a} value={a}>{a}</option>))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-1">{t("fieldBadge")}</label>
+                  <input type="text" name="badge" value={formData.badge} onChange={handleChange} placeholder={t("fieldBadgePlaceholder")} className="w-full px-4 py-2.5 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent text-sm" />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-1">{t("fieldDays")}</label>
+                  <input type="number" name="duration_days" required min="1" value={formData.duration_days} onChange={handleChange} className="w-full px-4 py-2.5 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent text-sm" />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-1">{t("fieldMaxPersons")}</label>
+                  <input type="number" name="max_persons" required min="1" value={formData.max_persons} onChange={handleChange} className="w-full px-4 py-2.5 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent text-sm" />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-1">{t("fieldPrice")}</label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-mist text-sm">€</span>
+                    <input type="number" name="price_from" required min="0" step="0.01" value={formData.price_from} onChange={handleChange} className="w-full pl-8 pr-4 py-2.5 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent text-sm" />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-1">Měna</label>
+                  <select name="currency" value={formData.currency} onChange={handleChange} className="w-full px-4 py-2.5 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent bg-white text-sm">
+                    <option value="EUR">EUR</option>
+                    <option value="CZK">CZK</option>
+                    <option value="USD">USD</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-1">{t("fieldPerex")}</label>
+                <textarea name="perex" rows={2} value={formData.perex} onChange={handleChange} className="w-full px-4 py-2.5 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent text-sm resize-none" />
+              </div>
+
             </div>
           </div>
 
-          {/* Cover & Gallery */}
-          <div className="bg-white rounded-[1.2rem] p-6 shadow-sm">
-            <h2 className="font-heading text-xl font-bold text-deep mb-6">
-              Fotky
-            </h2>
-            <div className="space-y-6">
+          {/* 2. Fotky */}
+          <div className="bg-white rounded-[1.2rem] shadow-sm overflow-hidden">
+            <div className="flex items-center gap-3 px-6 py-4 border-b border-sand bg-sand/20">
+              <span className="w-7 h-7 rounded-full bg-ember text-white text-xs font-bold flex items-center justify-center">2</span>
+              <h2 className="font-heading text-lg font-bold text-deep">Fotky</h2>
+            </div>
+            <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-deep mb-2">
-                  Cover fotka
-                </label>
+                <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-2">Cover fotka</label>
                 {coverPreview && (
-                  <img
-                    src={coverPreview}
-                    alt="Cover preview"
-                    className="w-full max-w-xs h-40 object-cover rounded-[0.4rem] mb-3"
-                  />
+                  <img src={coverPreview} alt="Cover preview" className="w-full h-40 object-cover rounded-[0.4rem] mb-3" />
                 )}
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleCoverChange}
-                  className="block w-full text-sm text-mist file:mr-4 file:py-2 file:px-4 file:rounded-[0.4rem] file:border-0 file:text-sm file:font-medium file:bg-ember file:text-white hover:file:bg-ember/90"
-                />
+                <input type="file" accept="image/*" onChange={handleCoverChange} className="block w-full text-sm text-mist file:mr-4 file:py-2 file:px-4 file:rounded-[0.4rem] file:border-0 file:text-sm file:font-medium file:bg-ember file:text-white hover:file:bg-ember/90" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-deep mb-2">
-                  Galerie
-                </label>
+                <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-2">Galerie</label>
                 <div className="flex flex-wrap gap-2 mb-3">
                   {pkg.gallery_urls?.map((url, i) => (
-                    <img key={i} src={url} alt={`Gallery ${i}`} className="w-24 h-24 object-cover rounded-[0.4rem]" />
+                    <img key={i} src={url} alt={`Gallery ${i}`} className="w-20 h-20 object-cover rounded-[0.4rem]" />
                   ))}
                   {galleryFiles.map((file, i) => (
-                    <div key={`new-${i}`} className="w-24 h-24 bg-sand rounded-[0.4rem] flex items-center justify-center text-xs text-mist">
-                      {file.name.slice(0, 10)}...
+                    <div key={`new-${i}`} className="w-20 h-20 bg-sand rounded-[0.4rem] flex items-center justify-center text-xs text-mist text-center p-1">
+                      {file.name.slice(0, 12)}
                     </div>
                   ))}
                 </div>
-                <input
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  onChange={handleGalleryChange}
-                  className="block w-full text-sm text-mist file:mr-4 file:py-2 file:px-4 file:rounded-[0.4rem] file:border-0 file:text-sm file:font-medium file:bg-forest file:text-white hover:file:bg-forest/90"
-                />
+                <input type="file" accept="image/*" multiple onChange={handleGalleryChange} className="block w-full text-sm text-mist file:mr-4 file:py-2 file:px-4 file:rounded-[0.4rem] file:border-0 file:text-sm file:font-medium file:bg-forest file:text-white hover:file:bg-forest/90" />
               </div>
             </div>
           </div>
 
-          {/* Description & Content */}
-          <div className="bg-white rounded-[1.2rem] p-6 shadow-sm">
-            <h2 className="font-heading text-xl font-bold text-deep mb-6">
-              {t("sectionContent")}
-            </h2>
-            <div className="space-y-6">
+          {/* 3. Popis & obsah */}
+          <div className="bg-white rounded-[1.2rem] shadow-sm overflow-hidden">
+            <div className="flex items-center gap-3 px-6 py-4 border-b border-sand bg-sand/20">
+              <span className="w-7 h-7 rounded-full bg-ember text-white text-xs font-bold flex items-center justify-center">3</span>
+              <h2 className="font-heading text-lg font-bold text-deep">{t("sectionContent")}</h2>
+            </div>
+            <div className="p-6 space-y-5">
               <div>
-                <label className="block text-sm font-medium text-deep mb-2">{t("fieldDescription")}</label>
-                <textarea name="description" rows={6} value={formData.description} onChange={handleChange} className="w-full px-4 py-3 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent" />
+                <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-1">{t("fieldDescription")}</label>
+                <textarea name="description" rows={5} value={formData.description} onChange={handleChange} className="w-full px-4 py-2.5 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent text-sm resize-y" />
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-sm font-medium text-deep mb-2">{t("fieldIncluded")}</label>
-                  <textarea name="included" rows={4} value={formData.included} onChange={handleChange} className="w-full px-4 py-3 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent" />
+                  <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-1">{t("fieldIncluded")}</label>
+                  <textarea name="included" rows={5} value={formData.included} onChange={handleChange} className="w-full px-4 py-2.5 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent text-sm resize-y" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-deep mb-2">{t("fieldExcluded")}</label>
-                  <textarea name="excluded" rows={4} value={formData.excluded} onChange={handleChange} className="w-full px-4 py-3 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent" />
+                  <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-1">{t("fieldExcluded")}</label>
+                  <textarea name="excluded" rows={5} value={formData.excluded} onChange={handleChange} className="w-full px-4 py-2.5 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent text-sm resize-y" />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-deep mb-2">{t("fieldHighlights")}</label>
-                <input type="text" name="highlights" value={formData.highlights} onChange={handleChange} className="w-full px-4 py-3 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent" placeholder={t("fieldHighlightsPlaceholder")} />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-deep mb-2">{t("fieldBadge")}</label>
-                <input type="text" name="badge" value={formData.badge} onChange={handleChange} className="w-full px-4 py-3 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent" placeholder={t("fieldBadgePlaceholder")} />
+                <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-1">{t("fieldHighlights")}</label>
+                <input type="text" name="highlights" value={formData.highlights} onChange={handleChange} placeholder={t("fieldHighlightsPlaceholder")} className="w-full px-4 py-2.5 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent text-sm" />
+                <p className="text-xs text-mist mt-1">Oddělené čárkou – zobrazují se jako tagy na kartičce</p>
               </div>
             </div>
           </div>
 
-          {/* Itinerary */}
-          <div className="bg-white rounded-[1.2rem] p-6 shadow-sm">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="font-heading text-xl font-bold text-deep">{t("sectionItinerary")}</h2>
+          {/* 4. Itinerář */}
+          <div className="bg-white rounded-[1.2rem] shadow-sm overflow-hidden">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-sand bg-sand/20">
+              <div className="flex items-center gap-3">
+                <span className="w-7 h-7 rounded-full bg-ember text-white text-xs font-bold flex items-center justify-center">4</span>
+                <h2 className="font-heading text-lg font-bold text-deep">{t("sectionItinerary")}</h2>
+                <span className="text-xs text-mist bg-sand px-2 py-0.5 rounded-full">{itinerary.length} dní</span>
+              </div>
               <button type="button" onClick={addItineraryDay} className="px-4 py-2 bg-forest text-white text-sm font-medium rounded-[0.4rem] hover:bg-forest/90 transition-colors">
-                {t("itineraryAddDay")}
+                + {t("itineraryAddDay")}
               </button>
             </div>
-            <div className="space-y-4">
+            <div className="p-6 space-y-3">
               {itinerary.map((day, index) => (
-                <div key={index} className="border border-sand rounded-[0.4rem] p-4">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-medium text-deep">{t("itineraryDay")} {day.day}</h3>
+                <div key={index} className="border border-sand rounded-[0.4rem] overflow-hidden">
+                  <div className="flex items-center justify-between px-4 py-2 bg-sand/30">
+                    <span className="text-xs font-bold text-ember uppercase tracking-wide">Den {day.day}</span>
                     {itinerary.length > 1 && (
-                      <button type="button" onClick={() => removeItineraryDay(index)} className="text-ember hover:text-ember/80 text-sm">
+                      <button type="button" onClick={() => removeItineraryDay(index)} className="text-xs text-ember hover:text-ember/70">
                         {t("itineraryRemoveDay")}
                       </button>
                     )}
                   </div>
-                  <div className="space-y-4">
-                    <input type="text" placeholder={t("itineraryDayTitlePlaceholder")} value={day.title} onChange={(e) => updateItineraryDay(index, "title", e.target.value)} className="w-full px-4 py-3 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent" />
-                    <textarea placeholder={t("itineraryDayTextPlaceholder")} rows={3} value={day.text} onChange={(e) => updateItineraryDay(index, "text", e.target.value)} className="w-full px-4 py-3 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent" />
+                  <div className="p-4 space-y-3">
+                    <input type="text" placeholder={t("itineraryDayTitlePlaceholder")} value={day.title} onChange={(e) => updateItineraryDay(index, "title", e.target.value)} className="w-full px-3 py-2 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent text-sm font-medium" />
+                    <textarea placeholder={t("itineraryDayTextPlaceholder")} rows={2} value={day.text} onChange={(e) => updateItineraryDay(index, "text", e.target.value)} className="w-full px-3 py-2 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent text-sm resize-none" />
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Submit */}
-          <div className="flex justify-end space-x-4">
-            <Link href={`/${locale}/admin`} className="px-6 py-3 bg-sand text-deep font-medium rounded-[0.4rem] hover:bg-sand/80 transition-colors">
+          {/* Bottom save */}
+          <div className="flex justify-end gap-3 pb-4">
+            <Link href={`/${locale}/admin`} className="px-6 py-3 bg-white border border-sand text-deep font-medium rounded-[0.4rem] hover:bg-sand/50 transition-colors">
               {t("back")}
             </Link>
-            <button type="submit" disabled={saving} className="px-6 py-3 bg-ember text-white font-medium rounded-[0.4rem] hover:bg-ember/90 transition-colors disabled:opacity-50">
-              {saving ? "Ukládám..." : t("save")}
+            <button type="submit" disabled={saving} className="px-8 py-3 bg-ember text-white font-medium rounded-[0.4rem] hover:bg-ember/90 transition-colors disabled:opacity-50">
+              {saving ? "Ukládám…" : t("save")}
             </button>
           </div>
+
         </form>
       </div>
     </div>
