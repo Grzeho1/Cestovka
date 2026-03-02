@@ -61,7 +61,8 @@
     "daysUnit": "dní",
     "maxPersons": "Max. osob",
     "area": "Oblast",
-    "gallery": "Galerie"
+    "gallery": "Galerie",
+    "route": "Trasa"
   },
   "reservation": {
     "title": "Rezervace",
@@ -122,7 +123,8 @@
     "itineraryRemoveDay": "Odebrat",
     "itineraryDay": "Den",
     "itineraryDayTitlePlaceholder": "Název dne",
-    "itineraryDayTextPlaceholder": "Popis dne"
+    "itineraryDayTextPlaceholder": "Popis dne",
+    "itineraryLocation": "Místo na mapě (klikněte pro nastavení)"
   },
   "howItWorks": {
     "title": "Jak to funguje",
@@ -215,6 +217,15 @@
     "emailLabel": "E-mail",
     "addressLabel": "Sídlo",
     "phoneLabel": "Telefon"
+  },
+  "map": {
+    "title": "Prozkoumejte Indonésii",
+    "subtitle": "Klikněte na oblast a objevte naše cestovní balíčky",
+    "loading": "Načítám mapu…",
+    "packages": "balíčků",
+    "viewPackages": "Zobrazit balíčky",
+    "noPackagesYet": "Zatím žádné balíčky",
+    "resetView": "Celá Indonésie"
   },
   "footer": {
     "description": "Cestovní kancelář zaměřená na Indonésii. Malé skupiny, autentické zážitky.",

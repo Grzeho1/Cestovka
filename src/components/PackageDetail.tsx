@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import type { Package } from "@/lib/types";
+import IndonesiaMapLazy from "./map/IndonesiaMapLazy";
 
 interface PackageDetailProps {
   pkg: Package;
@@ -163,6 +164,20 @@ export default function PackageDetail({ pkg }: PackageDetailProps) {
                 </span>
               ))}
             </div>
+          </div>
+        )}
+
+        {/* Route Map */}
+        {pkg.route_points && pkg.route_points.length > 0 && (
+          <div className="mb-12">
+            <h2 className="font-heading text-2xl font-bold text-deep mb-4">
+              {t("route")}
+            </h2>
+            <IndonesiaMapLazy
+              className="h-[300px] sm:h-[400px]"
+              selectedPackage={pkg}
+              mode="detail"
+            />
           </div>
         )}
 

@@ -45,3 +45,111 @@ h1, h2, h3 {
 .animation-delay-300 { animation-delay: 0.3s; }
 .animation-delay-400 { animation-delay: 0.4s; }
 .animation-delay-500 { animation-delay: 0.5s; }
+
+/* MapLibre custom styles */
+.indonesia-map-marker {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.indonesia-map-marker .marker-dot {
+  width: 14px;
+  height: 14px;
+  background: var(--color-ember);
+  border: 2.5px solid white;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.indonesia-map-marker:hover .marker-dot {
+  transform: scale(1.3);
+  background: var(--color-gold);
+}
+
+.indonesia-map-marker .marker-label {
+  font-family: var(--font-body), sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-deep);
+  background: white;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.route-day-marker {
+  width: 28px;
+  height: 28px;
+  background: var(--color-ember);
+  border: 2.5px solid white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  cursor: default;
+}
+
+.route-day-marker span {
+  font-family: var(--font-body), sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: white;
+  line-height: 1;
+}
+
+/* MapLibre popup custom styles */
+.maplibregl-popup-content {
+  padding: 0 !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+}
+
+.maplibregl-popup-close-button {
+  font-size: 18px;
+  padding: 4px 8px;
+  color: var(--color-mist);
+}
+
+.area-popup {
+  padding: 16px;
+  font-family: var(--font-body), sans-serif;
+}
+
+.area-popup-title {
+  font-family: var(--font-heading), serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-deep);
+  margin-bottom: 4px;
+}
+
+.area-popup-count {
+  font-size: 13px;
+  color: var(--color-mist);
+  margin-bottom: 8px;
+}
+
+.area-popup-empty {
+  font-size: 13px;
+  color: var(--color-mist);
+}
+
+.area-popup-link {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ember);
+  text-decoration: none;
+}
+
+.area-popup-link:hover {
+  text-decoration: underline;
+}

@@ -1,5 +1,5 @@
 import { supabase } from "./supabase";
-import type { Package, ItineraryDay } from "./types";
+import type { Package, ItineraryDay, RoutePoint } from "./types";
 
 // Helper to map Supabase row to our Package type
 function mapRow(row: Record<string, unknown>): Package {
@@ -23,6 +23,7 @@ function mapRow(row: Record<string, unknown>): Package {
     gallery_urls: (row.gallery_urls as string[]) || [],
     active: row.active as boolean,
     featured: (row.featured as boolean) || false,
+    route_points: (row.route_points as RoutePoint[]) || [],
   };
 }
 
@@ -129,6 +130,7 @@ export async function createPackage(
       gallery_urls: pkg.gallery_urls,
       active: pkg.active,
       featured: pkg.featured ?? false,
+      route_points: pkg.route_points || [],
     })
     .select()
     .single();
@@ -145,18 +147,33 @@ export async function updatePackage(
   id: string,
   updates: Partial<Package>
 ): Promise<Package | null> {
+  // Only send columns that exist in the DB table
+  const payload: Record<string, unknown> = {
+    updated_at: new Date().toISOString(),
+  };
+
+  const allowedFields = [
+    "slug", "title", "area", "duration_days", "max_persons",
+    "price_from", "currency", "perex", "description", "itinerary",
+    "included", "excluded", "highlights", "badge", "cover_url",
+    "gallery_urls", "active", "featured", "route_points",
+  ] as const;
+
+  for (const field of allowedFields) {
+    if (field in updates) {
+      payload[field] = updates[field as keyof Package];
+    }
+  }
+
   const { data, error } = await supabase
     .from("packages")
-    .update({
-      ...updates,
-      updated_at: new Date().toISOString(),
-    })
+    .update(payload)
     .eq("id", id)
     .select()
     .single();
 
   if (error) {
-    console.error("Error updating package:", error);
+    console.error("Error updating package:", error.message, error.details);
     return null;
   }
 

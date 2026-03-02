@@ -1,7 +1,14 @@
+export interface RoutePoint {
+  lat: number;
+  lng: number;
+  name?: string;
+}
+
 export interface ItineraryDay {
   day: number;
   title: string;
   text: string;
+  location?: RoutePoint;
 }
 
 export interface Package {
@@ -24,4 +31,5 @@ export interface Package {
   gallery_urls: string[];
   active: boolean;
   featured: boolean;
+  route_points?: RoutePoint[];
 }

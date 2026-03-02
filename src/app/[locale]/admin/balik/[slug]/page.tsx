@@ -1,12 +1,18 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { getPackageBySlug, updatePackage, uploadImage } from "@/lib/packages";
 import { AREAS } from "@/lib/areas";
-import type { Package, ItineraryDay } from "@/lib/types";
+import type { Package, ItineraryDay, RoutePoint } from "@/lib/types";
 import Link from "next/link";
+
+const LocationPicker = dynamic(
+  () => import("@/components/map/LocationPicker"),
+  { ssr: false }
+);
 
 export default function EditPackagePage({
   params,
@@ -120,6 +126,9 @@ export default function EditPackagePage({
       gallery_urls: newGalleryUrls,
       active: formData.active,
       featured: formData.featured,
+      route_points: itinerary
+        .filter((d) => d.location)
+        .map((d) => d.location!),
     });
 
     setSaving(false);
@@ -154,6 +163,14 @@ export default function EditPackagePage({
   const updateItineraryDay = (index: number, field: string, value: string) => {
     setItinerary((prev) =>
       prev.map((item, i) => (i === index ? { ...item, [field]: value } : item))
+    );
+  };
+
+  const updateItineraryLocation = (index: number, location: RoutePoint) => {
+    setItinerary((prev) =>
+      prev.map((item, i) =>
+        i === index ? { ...item, location } : item
+      )
     );
   };
 
@@ -393,6 +410,15 @@ export default function EditPackagePage({
                   <div className="p-4 space-y-3">
                     <input type="text" placeholder={t("itineraryDayTitlePlaceholder")} value={day.title} onChange={(e) => updateItineraryDay(index, "title", e.target.value)} className="w-full px-3 py-2 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent text-sm font-medium" />
                     <textarea placeholder={t("itineraryDayTextPlaceholder")} rows={2} value={day.text} onChange={(e) => updateItineraryDay(index, "text", e.target.value)} className="w-full px-3 py-2 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent text-sm resize-none" />
+                    <div>
+                      <label className="block text-xs font-medium text-mist mb-1">
+                        {t("itineraryLocation")}
+                      </label>
+                      <LocationPicker
+                        value={day.location}
+                        onChange={(point) => updateItineraryLocation(index, point)}
+                      />
+                    </div>
                   </div>
                 </div>
               ))}

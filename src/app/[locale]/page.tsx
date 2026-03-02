@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Hero from "@/components/Hero";
+import IndonesiaMapSection from "@/components/IndonesiaMapSection";
 import PackageGrid from "@/components/PackageGrid";
 import WhyUs from "@/components/WhyUs";
 
@@ -32,6 +33,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <IndonesiaMapSection />
       <PackageGrid featuredOnly />
       <WhyUs />
     </>

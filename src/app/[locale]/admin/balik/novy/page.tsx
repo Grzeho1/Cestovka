@@ -1,12 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
+import dynamic from "next/dynamic";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { createPackage, uploadImage } from "@/lib/packages";
 import { AREAS } from "@/lib/areas";
-import type { ItineraryDay } from "@/lib/types";
+import type { ItineraryDay, RoutePoint } from "@/lib/types";
 import Link from "next/link";
+
+const LocationPicker = dynamic(
+  () => import("@/components/map/LocationPicker"),
+  { ssr: false }
+);
 
 export default function NewPackagePage() {
   const locale = useLocale();
@@ -83,6 +89,9 @@ export default function NewPackagePage() {
       gallery_urls: galleryUrls,
       active: formData.active,
       featured: formData.featured,
+      route_points: itinerary
+        .filter((d) => d.location)
+        .map((d) => d.location!),
     });
 
     setSaving(false);
@@ -122,6 +131,14 @@ export default function NewPackagePage() {
     setItinerary((prev) =>
       prev.map((item, i) =>
         i === index ? { ...item, [field]: value } : item
+      )
+    );
+  };
+
+  const updateItineraryLocation = (index: number, location: RoutePoint) => {
+    setItinerary((prev) =>
+      prev.map((item, i) =>
+        i === index ? { ...item, location } : item
       )
     );
   };
@@ -493,6 +510,17 @@ export default function NewPackagePage() {
                       }
                       className="w-full px-4 py-3 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent"
                     />
+                    <div>
+                      <label className="block text-xs font-medium text-mist mb-1">
+                        {t("itineraryLocation")}
+                      </label>
+                      <LocationPicker
+                        value={day.location}
+                        onChange={(point) =>
+                          updateItineraryLocation(index, point)
+                        }
+                      />
+                    </div>
                   </div>
                 </div>
               ))}
