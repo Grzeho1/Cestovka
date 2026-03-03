@@ -62,7 +62,9 @@
     "maxPersons": "Max. osob",
     "area": "Oblast",
     "gallery": "Galerie",
-    "route": "Trasa"
+    "route": "Trasa",
+    "personsShort": "os.",
+    "noCommitment": "Nezávazná poptávka – odpovíme do 24h"
   },
   "reservation": {
     "title": "Rezervace",
