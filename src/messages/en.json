@@ -124,7 +124,8 @@
     "itineraryDay": "Day",
     "itineraryDayTitlePlaceholder": "Day title",
     "itineraryDayTextPlaceholder": "Day description",
-    "itineraryLocation": "Map location (click to set)"
+    "itineraryLocation": "Map location (click to set)",
+    "itineraryImage": "Day photo"
   },
   "howItWorks": {
     "title": "How it works",
@@ -225,7 +226,8 @@
     "packages": "packages",
     "viewPackages": "View packages",
     "noPackagesYet": "No packages yet",
-    "resetView": "All of Indonesia"
+    "resetView": "All of Indonesia",
+    "closeArea": "Close"
   },
   "footer": {
     "description": "Travel agency focused on Indonesia. Small groups, authentic experiences.",

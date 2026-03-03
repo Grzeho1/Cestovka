@@ -124,7 +124,8 @@
     "itineraryDay": "Den",
     "itineraryDayTitlePlaceholder": "Název dne",
     "itineraryDayTextPlaceholder": "Popis dne",
-    "itineraryLocation": "Místo na mapě (klikněte pro nastavení)"
+    "itineraryLocation": "Místo na mapě (klikněte pro nastavení)",
+    "itineraryImage": "Fotka dne"
   },
   "howItWorks": {
     "title": "Jak to funguje",
@@ -225,7 +226,8 @@
     "packages": "balíčků",
     "viewPackages": "Zobrazit balíčky",
     "noPackagesYet": "Zatím žádné balíčky",
-    "resetView": "Celá Indonésie"
+    "resetView": "Celá Indonésie",
+    "closeArea": "Zavřít"
   },
   "footer": {
     "description": "Cestovní kancelář zaměřená na Indonésii. Malé skupiny, autentické zážitky.",

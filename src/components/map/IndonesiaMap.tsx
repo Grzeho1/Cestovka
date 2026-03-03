@@ -10,7 +10,6 @@ import {
   INDONESIA_DEFAULT_VIEW,
   TERRAIN_EXAGGERATION,
   getMapTilerStyleUrl,
-  getTerrainUrl,
 } from "@/lib/map-config";
 import type { Package } from "@/lib/types";
 
@@ -63,9 +62,11 @@ export default function IndonesiaMap({
           }
         : INDONESIA_DEFAULT_VIEW;
 
+    const mapStyle = "hybrid" as const;
+
     const m = new maplibregl.Map({
       container: mapContainer.current,
-      style: getMapTilerStyleUrl(MAPTILER_KEY),
+      style: getMapTilerStyleUrl(MAPTILER_KEY, mapStyle),
       center: initialView.center,
       zoom: initialView.zoom,
       pitch: initialView.pitch,
@@ -150,8 +151,7 @@ export default function IndonesiaMap({
             <h3 class="area-popup-title">${area}</h3>
             ${
               count > 0
-                ? `<p class="area-popup-count">${count} ${t("packages")}</p>
-                   <a href="/${locale}/baliky?area=${encodeURIComponent(area)}" class="area-popup-link">${t("viewPackages")} →</a>`
+                ? `<p class="area-popup-count">${count} ${t("packages")} ↓</p>`
                 : `<p class="area-popup-empty">${t("noPackagesYet")}</p>`
             }
           </div>
@@ -213,11 +213,11 @@ export default function IndonesiaMap({
       const day = itinerary[index];
       const dayTitle = day?.title || point.name || `Den ${index + 1}`;
       const dayText = day?.text || "";
-      const coverUrl = index === 0 && pkg.cover_url ? pkg.cover_url : "";
+      const imageUrl = day?.image_url || (index === 0 ? pkg.cover_url : "") || "";
 
       const popupHtml = `
         <div class="route-popup">
-          ${coverUrl ? `<img src="${coverUrl}" alt="${dayTitle}" class="route-popup-img" />` : ""}
+          ${imageUrl ? `<img src="${imageUrl}" alt="${dayTitle}" class="route-popup-img" />` : ""}
           <div class="route-popup-body">
             <div class="route-popup-day">Den ${index + 1}</div>
             <div class="route-popup-title">${dayTitle}</div>

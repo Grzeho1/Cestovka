@@ -9,6 +9,7 @@ export interface ItineraryDay {
   title: string;
   text: string;
   location?: RoutePoint;
+  image_url?: string;
 }
 
 export interface Package {

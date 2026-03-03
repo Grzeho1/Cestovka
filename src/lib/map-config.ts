@@ -30,8 +30,10 @@ export const INDONESIA_DEFAULT_VIEW = {
 
 export const TERRAIN_EXAGGERATION = 1.5;
 
-export function getMapTilerStyleUrl(key: string): string {
-  return `https://api.maptiler.com/maps/outdoor-v2/style.json?key=${key}`;
+export type MapStyleId = "hybrid" | "satellite" | "outdoor-v2" | "topo-v2";
+
+export function getMapTilerStyleUrl(key: string, style: MapStyleId = "hybrid"): string {
+  return `https://api.maptiler.com/maps/${style}/style.json?key=${key}`;
 }
 
 export function getTerrainUrl(key: string): string {

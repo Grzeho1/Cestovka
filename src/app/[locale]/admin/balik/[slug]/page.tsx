@@ -51,6 +51,7 @@ export default function EditPackagePage({
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [coverPreview, setCoverPreview] = useState<string>("");
   const [galleryFiles, setGalleryFiles] = useState<File[]>([]);
+  const [dayImageFiles, setDayImageFiles] = useState<Record<number, File>>({});
 
   useEffect(() => {
     getPackageBySlug(slug).then((data) => {
@@ -104,6 +105,17 @@ export default function EditPackagePage({
       if (url) newGalleryUrls.push(url);
     }
 
+    // Upload day images
+    const updatedItinerary = [...itinerary];
+    for (const [indexStr, file] of Object.entries(dayImageFiles)) {
+      const idx = parseInt(indexStr);
+      const path = `itinerary/${formData.slug}-day${idx + 1}-${Date.now()}.${file.name.split(".").pop()}`;
+      const url = await uploadImage(file, path);
+      if (url && updatedItinerary[idx]) {
+        updatedItinerary[idx] = { ...updatedItinerary[idx], image_url: url };
+      }
+    }
+
     const updated = await updatePackage(pkg.id, {
       title: formData.title,
       slug: formData.slug,
@@ -114,7 +126,7 @@ export default function EditPackagePage({
       currency: formData.currency,
       perex: formData.perex,
       description: formData.description,
-      itinerary,
+      itinerary: updatedItinerary,
       included: formData.included.split("\n").filter(Boolean),
       excluded: formData.excluded.split("\n").filter(Boolean),
       highlights: formData.highlights
@@ -126,7 +138,7 @@ export default function EditPackagePage({
       gallery_urls: newGalleryUrls,
       active: formData.active,
       featured: formData.featured,
-      route_points: itinerary
+      route_points: updatedItinerary
         .filter((d) => d.location)
         .map((d) => d.location!),
     });
@@ -417,6 +429,27 @@ export default function EditPackagePage({
                       <LocationPicker
                         value={day.location}
                         onChange={(point) => updateItineraryLocation(index, point)}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium text-mist mb-1">
+                        {t("itineraryImage")}
+                      </label>
+                      {(dayImageFiles[index] || day.image_url) && (
+                        <img
+                          src={dayImageFiles[index] ? URL.createObjectURL(dayImageFiles[index]) : day.image_url}
+                          alt={`Den ${day.day}`}
+                          className="w-full max-w-xs h-28 object-cover rounded-[0.4rem] mb-2"
+                        />
+                      )}
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) setDayImageFiles((prev) => ({ ...prev, [index]: file }));
+                        }}
+                        className="block w-full text-xs text-mist file:mr-3 file:py-1.5 file:px-3 file:rounded-[0.4rem] file:border-0 file:text-xs file:font-medium file:bg-forest file:text-white hover:file:bg-forest/90"
                       />
                     </div>
                   </div>
