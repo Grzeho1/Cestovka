@@ -21,7 +21,7 @@ export default function CTABanner() {
           {t("subtitle")}
         </p>
         <Link
-          href={`/${locale}/kontakt`}
+          href={`/${locale}/contact`}
           className="animate-fade-in-up animation-delay-200 inline-flex items-center px-8 py-4 bg-white text-ember font-bold rounded-[0.4rem] hover:bg-sand transition-colors text-lg"
         >
           {t("cta")}

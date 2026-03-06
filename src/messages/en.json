@@ -62,7 +62,9 @@
     "maxPersons": "Max. persons",
     "area": "Area",
     "gallery": "Gallery",
-    "route": "Route"
+    "route": "Route",
+    "personsShort": "pers.",
+    "noCommitment": "No commitment – we reply within 24h"
   },
   "reservation": {
     "title": "Reservation",

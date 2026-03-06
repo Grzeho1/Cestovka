@@ -14,7 +14,7 @@ export default function PackageCard({ pkg }: PackageCardProps) {
   const locale = useLocale();
 
   return (
-    <Link href={`/${locale}/balik/${pkg.slug}`} className="group block">
+    <Link href={`/${locale}/package/${pkg.slug}`} className="group block">
       <div className="bg-sand rounded-[1.2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1.5">
         {/* Image area */}
         <div className="relative h-52 bg-gradient-to-br from-forest via-deep to-ember/60 overflow-hidden">

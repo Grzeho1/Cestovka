@@ -43,7 +43,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href={`/${locale}/baliky`}
+                  href={`/${locale}/packages`}
                   className="text-sm text-sand/60 hover:text-ember transition-colors"
                 >
                   {tNav("packages")}
@@ -51,7 +51,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href={`/${locale}/o-nas`}
+                  href={`/${locale}/about`}
                   className="text-sm text-sand/60 hover:text-ember transition-colors"
                 >
                   {t("about")}

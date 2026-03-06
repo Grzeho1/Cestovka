@@ -21,8 +21,8 @@ export default function Navbar() {
 
   const navLinks = [
     { href: `/${locale}`, label: t("home") },
-    { href: `/${locale}/baliky`, label: t("packages") },
-    { href: `/${locale}/o-nas`, label: t("about") },
+    { href: `/${locale}/packages`, label: t("packages") },
+    { href: `/${locale}/about`, label: t("about") },
   ];
 
   return (
@@ -89,7 +89,7 @@ export default function Navbar() {
 
             {/* CTA */}
             <Link
-              href={`/${locale}/kontakt`}
+              href={`/${locale}/contact`}
               className="hidden sm:inline-flex items-center px-4 py-1.5 bg-ember text-white text-sm font-medium rounded-[0.4rem] hover:bg-ember/90 transition-colors"
             >
               {t("cta")}
@@ -154,7 +154,7 @@ export default function Navbar() {
               {t("login")}
             </Link>
             <Link
-              href={`/${locale}/kontakt`}
+              href={`/${locale}/contact`}
               onClick={() => setMobileOpen(false)}
               className="block text-center px-4 py-2.5 bg-ember text-white text-sm font-medium rounded-[0.4rem]"
             >
