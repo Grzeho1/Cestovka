@@ -109,7 +109,7 @@ export default async function AboutPage({
             </p>
           </div>
           <Link
-            href={`/${locale}/kontakt`}
+            href={`/${locale}/contact`}
             className="shrink-0 inline-flex items-center px-6 py-3 bg-ember text-white text-sm font-medium rounded-[0.4rem] hover:bg-ember/90 transition-colors"
           >
             {t("ctaBtn")}

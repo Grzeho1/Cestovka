@@ -262,7 +262,7 @@ export default function ReservationPage({
               {isLoading ? t("sending") : t("submit")}
             </button>
             <Link
-              href={`/${locale}/balik/${slug}`}
+              href={`/${locale}/package/${slug}`}
               className="px-6 py-3 bg-sand text-deep font-medium rounded-[0.4rem] hover:bg-sand/80 transition-colors text-center"
             >
               {t("back")}

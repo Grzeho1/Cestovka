@@ -240,7 +240,7 @@ export default function NewPackagePage() {
                   onChange={handleChange}
                   className="w-full px-4 py-3 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent bg-white"
                 >
-                  <option value="">– vyber oblast –</option>
+                  <option value="">– select area –</option>
                   {AREAS.map((a) => (
                     <option key={a} value={a}>{a}</option>
                   ))}
@@ -341,12 +341,12 @@ export default function NewPackagePage() {
           {/* Cover & Gallery */}
           <div className="bg-white rounded-[1.2rem] p-6 shadow-sm">
             <h2 className="font-heading text-xl font-bold text-deep mb-6">
-              Fotky
+              Photos
             </h2>
             <div className="space-y-6">
               <div>
                 <label className="block text-sm font-medium text-deep mb-2">
-                  Cover fotka
+                  Cover photo
                 </label>
                 {coverPreview && (
                   <img
@@ -364,7 +364,7 @@ export default function NewPackagePage() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-deep mb-2">
-                  Galerie
+                  Gallery
                 </label>
                 {galleryFiles.length > 0 && (
                   <div className="flex flex-wrap gap-2 mb-3">
@@ -540,7 +540,7 @@ export default function NewPackagePage() {
                       {dayImageFiles[index] && (
                         <img
                           src={URL.createObjectURL(dayImageFiles[index])}
-                          alt={`Den ${day.day}`}
+                          alt={`Day ${day.day}`}
                           className="w-full max-w-xs h-28 object-cover rounded-[0.4rem] mb-2"
                         />
                       )}
@@ -573,7 +573,7 @@ export default function NewPackagePage() {
               disabled={saving}
               className="px-6 py-3 bg-ember text-white font-medium rounded-[0.4rem] hover:bg-ember/90 transition-colors disabled:opacity-50"
             >
-              {saving ? "Ukládám..." : t("save")}
+              {saving ? "Saving..." : t("save")}
             </button>
           </div>
         </form>

@@ -211,7 +211,7 @@ export default function IndonesiaMap({
 
       // Build popup content from itinerary day data
       const day = itinerary[index];
-      const dayTitle = day?.title || point.name || `Den ${index + 1}`;
+      const dayTitle = day?.title || point.name || `Day ${index + 1}`;
       const dayText = day?.text || "";
       const imageUrl = day?.image_url || (index === 0 ? pkg.cover_url : "") || "";
 

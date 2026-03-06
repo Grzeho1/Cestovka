@@ -110,7 +110,7 @@ export default function PackageGrid({
         {featuredOnly && (
           <div className="animate-fade-in-up animation-delay-400 text-center mt-12">
             <Link
-              href={`/${locale}/baliky`}
+              href={`/${locale}/packages`}
               className="inline-flex items-center gap-2 px-6 py-3 border border-deep/20 text-deep text-sm font-medium rounded-[0.4rem] hover:bg-sand transition-colors"
             >
               {t("viewAll")}

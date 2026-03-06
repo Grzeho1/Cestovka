@@ -240,7 +240,7 @@ export default function EditPackagePage({
             <span className="font-heading font-bold text-deep truncate">{pkg.title}</span>
           </div>
           <div className="flex items-center gap-5">
-            {/* Aktivní toggle */}
+            {/* Active toggle */}
             <label className="flex items-center gap-2 cursor-pointer">
               <div className="relative">
                 <input type="checkbox" name="active" form="edit-form" checked={formData.active} onChange={handleChange} className="sr-only" />
@@ -248,7 +248,7 @@ export default function EditPackagePage({
                 <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${formData.active ? "translate-x-4" : "translate-x-0.5"}`} />
               </div>
               <span className={`text-xs font-semibold uppercase tracking-wide ${formData.active ? "text-forest" : "text-mist"}`}>
-                {formData.active ? "Aktivní" : "Neaktivní"}
+                {formData.active ? "Active" : "Inactive"}
               </span>
             </label>
             {/* Featured toggle */}
@@ -259,7 +259,7 @@ export default function EditPackagePage({
                 <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${formData.featured ? "translate-x-4" : "translate-x-0.5"}`} />
               </div>
               <span className={`text-xs font-semibold uppercase tracking-wide ${formData.featured ? "text-ember" : "text-mist"}`}>
-                {formData.featured ? "Na hlavní" : "Skrytý"}
+                {formData.featured ? "Featured" : "Hidden"}
               </span>
             </label>
             <button
@@ -268,7 +268,7 @@ export default function EditPackagePage({
               disabled={saving}
               className="px-6 py-2 bg-ember text-white font-medium rounded-[0.4rem] hover:bg-ember/90 transition-colors disabled:opacity-50 text-sm whitespace-nowrap"
             >
-              {saving ? "Ukládám…" : t("save")}
+              {saving ? "Saving…" : t("save")}
             </button>
           </div>
         </div>
@@ -277,7 +277,7 @@ export default function EditPackagePage({
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <form id="edit-form" onSubmit={handleSubmit} className="space-y-6">
 
-          {/* 1. Základní info */}
+          {/* 1. Basic info */}
           <div className="bg-white rounded-[1.2rem] shadow-sm overflow-hidden">
             <div className="flex items-center gap-3 px-6 py-4 border-b border-sand bg-sand/20">
               <span className="w-7 h-7 rounded-full bg-ember text-white text-xs font-bold flex items-center justify-center">1</span>
@@ -296,7 +296,7 @@ export default function EditPackagePage({
                 <div>
                   <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-1">{t("fieldArea")}</label>
                   <select name="area" required value={formData.area} onChange={handleChange} className="w-full px-4 py-2.5 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent bg-white text-sm">
-                    <option value="">– vyber oblast –</option>
+                    <option value="">– select area –</option>
                     {AREAS.map((a) => (<option key={a} value={a}>{a}</option>))}
                   </select>
                 </div>
@@ -320,7 +320,7 @@ export default function EditPackagePage({
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-1">Měna</label>
+                  <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-1">Currency</label>
                   <select name="currency" value={formData.currency} onChange={handleChange} className="w-full px-4 py-2.5 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent bg-white text-sm">
                     <option value="EUR">EUR</option>
                     <option value="CZK">CZK</option>
@@ -336,22 +336,22 @@ export default function EditPackagePage({
             </div>
           </div>
 
-          {/* 2. Fotky */}
+          {/* 2. Photos */}
           <div className="bg-white rounded-[1.2rem] shadow-sm overflow-hidden">
             <div className="flex items-center gap-3 px-6 py-4 border-b border-sand bg-sand/20">
               <span className="w-7 h-7 rounded-full bg-ember text-white text-xs font-bold flex items-center justify-center">2</span>
-              <h2 className="font-heading text-lg font-bold text-deep">Fotky</h2>
+              <h2 className="font-heading text-lg font-bold text-deep">Photos</h2>
             </div>
             <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-2">Cover fotka</label>
+                <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-2">Cover photo</label>
                 {coverPreview && (
                   <img src={coverPreview} alt="Cover preview" className="w-full h-40 object-cover rounded-[0.4rem] mb-3" />
                 )}
                 <input type="file" accept="image/*" onChange={handleCoverChange} className="block w-full text-sm text-mist file:mr-4 file:py-2 file:px-4 file:rounded-[0.4rem] file:border-0 file:text-sm file:font-medium file:bg-ember file:text-white hover:file:bg-ember/90" />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-2">Galerie</label>
+                <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-2">Gallery</label>
                 <div className="flex flex-wrap gap-2 mb-3">
                   {pkg.gallery_urls?.map((url, i) => (
                     <img key={i} src={url} alt={`Gallery ${i}`} className="w-20 h-20 object-cover rounded-[0.4rem]" />
@@ -367,7 +367,7 @@ export default function EditPackagePage({
             </div>
           </div>
 
-          {/* 3. Popis & obsah */}
+          {/* 3. Description & content */}
           <div className="bg-white rounded-[1.2rem] shadow-sm overflow-hidden">
             <div className="flex items-center gap-3 px-6 py-4 border-b border-sand bg-sand/20">
               <span className="w-7 h-7 rounded-full bg-ember text-white text-xs font-bold flex items-center justify-center">3</span>
@@ -391,18 +391,18 @@ export default function EditPackagePage({
               <div>
                 <label className="block text-xs font-semibold text-mist uppercase tracking-wide mb-1">{t("fieldHighlights")}</label>
                 <input type="text" name="highlights" value={formData.highlights} onChange={handleChange} placeholder={t("fieldHighlightsPlaceholder")} className="w-full px-4 py-2.5 border border-sand rounded-[0.4rem] focus:ring-2 focus:ring-ember focus:border-transparent text-sm" />
-                <p className="text-xs text-mist mt-1">Oddělené čárkou – zobrazují se jako tagy na kartičce</p>
+                <p className="text-xs text-mist mt-1">Comma-separated – displayed as tags on the card</p>
               </div>
             </div>
           </div>
 
-          {/* 4. Itinerář */}
+          {/* 4. Itinerary */}
           <div className="bg-white rounded-[1.2rem] shadow-sm overflow-hidden">
             <div className="flex items-center justify-between px-6 py-4 border-b border-sand bg-sand/20">
               <div className="flex items-center gap-3">
                 <span className="w-7 h-7 rounded-full bg-ember text-white text-xs font-bold flex items-center justify-center">4</span>
                 <h2 className="font-heading text-lg font-bold text-deep">{t("sectionItinerary")}</h2>
-                <span className="text-xs text-mist bg-sand px-2 py-0.5 rounded-full">{itinerary.length} dní</span>
+                <span className="text-xs text-mist bg-sand px-2 py-0.5 rounded-full">{itinerary.length} days</span>
               </div>
               <button type="button" onClick={addItineraryDay} className="px-4 py-2 bg-forest text-white text-sm font-medium rounded-[0.4rem] hover:bg-forest/90 transition-colors">
                 + {t("itineraryAddDay")}
@@ -412,7 +412,7 @@ export default function EditPackagePage({
               {itinerary.map((day, index) => (
                 <div key={index} className="border border-sand rounded-[0.4rem] overflow-hidden">
                   <div className="flex items-center justify-between px-4 py-2 bg-sand/30">
-                    <span className="text-xs font-bold text-ember uppercase tracking-wide">Den {day.day}</span>
+                    <span className="text-xs font-bold text-ember uppercase tracking-wide">Day {day.day}</span>
                     {itinerary.length > 1 && (
                       <button type="button" onClick={() => removeItineraryDay(index)} className="text-xs text-ember hover:text-ember/70">
                         {t("itineraryRemoveDay")}
@@ -438,7 +438,7 @@ export default function EditPackagePage({
                       {(dayImageFiles[index] || day.image_url) && (
                         <img
                           src={dayImageFiles[index] ? URL.createObjectURL(dayImageFiles[index]) : day.image_url}
-                          alt={`Den ${day.day}`}
+                          alt={`Day ${day.day}`}
                           className="w-full max-w-xs h-28 object-cover rounded-[0.4rem] mb-2"
                         />
                       )}
@@ -464,7 +464,7 @@ export default function EditPackagePage({
               {t("back")}
             </Link>
             <button type="submit" disabled={saving} className="px-8 py-3 bg-ember text-white font-medium rounded-[0.4rem] hover:bg-ember/90 transition-colors disabled:opacity-50">
-              {saving ? "Ukládám…" : t("save")}
+              {saving ? "Saving…" : t("save")}
             </button>
           </div>
 

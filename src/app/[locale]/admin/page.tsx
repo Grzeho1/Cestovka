@@ -20,7 +20,7 @@ export default function AdminPage() {
   }, []);
 
   const handleDelete = async (pkg: Package) => {
-    if (!confirm(`Opravdu chcete smazat "${pkg.title}"?`)) return;
+    if (!confirm(`Delete "${pkg.title}"?`)) return;
     const ok = await deletePackage(pkg.id);
     if (ok) {
       setPackages((prev) => prev.filter((p) => p.id !== pkg.id));
@@ -36,7 +36,7 @@ export default function AdminPage() {
             {t("title")}
           </h1>
           <Link
-            href={`/${locale}/admin/balik/novy`}
+            href={`/${locale}/admin/package/new`}
             className="px-6 py-3 bg-ember text-white font-medium rounded-[0.4rem] hover:bg-ember/90 transition-colors"
           >
             {t("newPackage")}
@@ -59,7 +59,7 @@ export default function AdminPage() {
             <div className="px-6 py-12 text-center">
               <p className="text-mist">{t("noPackages")}</p>
               <Link
-                href={`/${locale}/admin/balik/novy`}
+                href={`/${locale}/admin/package/new`}
                 className="mt-4 inline-flex items-center px-4 py-2 bg-ember text-white text-sm font-medium rounded-[0.4rem] hover:bg-ember/90 transition-colors"
               >
                 {t("createFirst")}
@@ -124,7 +124,7 @@ export default function AdminPage() {
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <div className="flex space-x-2">
                           <Link
-                            href={`/${locale}/admin/balik/${pkg.slug}`}
+                            href={`/${locale}/admin/package/${pkg.slug}`}
                             className="text-forest hover:text-forest/80"
                           >
                             {t("edit")}

@@ -45,13 +45,13 @@ export default function Hero() {
 
             <div className="animate-fade-in-up animation-delay-300 flex flex-col sm:flex-row gap-3 mb-12">
               <Link
-                href={`/${locale}/baliky`}
+                href={`/${locale}/packages`}
                 className="inline-flex items-center justify-center px-8 py-3.5 bg-ember text-white font-medium rounded-[0.4rem] hover:bg-ember/90 transition-colors text-lg"
               >
                 {t("cta")}
               </Link>
               <Link
-                href={`/${locale}/kontakt`}
+                href={`/${locale}/contact`}
                 className="inline-flex items-center justify-center px-8 py-3.5 border-2 border-white/30 text-white font-medium rounded-[0.4rem] hover:bg-white/10 transition-colors text-lg"
               >
                 {t("ctaSecondary")}

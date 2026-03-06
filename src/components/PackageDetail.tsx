@@ -333,7 +333,7 @@ export default function PackageDetail({ pkg }: PackageDetailProps) {
                   </div>
 
                   <Link
-                    href={`/${locale}/rezervace/${pkg.slug}`}
+                    href={`/${locale}/reservation/${pkg.slug}`}
                     className="flex items-center justify-center w-full px-6 py-3.5 bg-ember text-white font-bold rounded-xl hover:bg-ember/90 transition-colors text-base"
                   >
                     {t("bookNow")}
@@ -372,7 +372,7 @@ export default function PackageDetail({ pkg }: PackageDetailProps) {
               <span className="text-mist text-xs ml-0.5">/ {t("personsShort")}</span>
             </div>
             <Link
-              href={`/${locale}/rezervace/${pkg.slug}`}
+              href={`/${locale}/reservation/${pkg.slug}`}
               className="inline-flex items-center px-6 py-2.5 bg-ember text-white font-bold rounded-xl hover:bg-ember/90 transition-colors text-sm"
             >
               {t("bookNow")}
